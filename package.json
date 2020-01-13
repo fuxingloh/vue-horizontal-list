@@ -1,7 +1,23 @@
 {
   "name": "vue-horizontal-list",
   "version": "1.0.0",
-  "description": "",
+  "description": "A pure vue ssr friendly horizontal list implementation.",
+
+  "author": "Fuxing Loh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fuxingloh/vue-horizonal-list.git"
+  },
+  "bugs": "https://github.com/fuxingloh/vue-horizonal-list/issues",
+  "keywords": [
+    "vue",
+    "vuejs",
+    "horizontal",
+    "scroll view",
+    "airbnb list"
+  ],
+  "license": "MIT",
+  "private": false,
 
   "main": "dist/vue-horizontal-list.ssr.js",
   "module": "dist/vue-horizontal-list.esm.js",
