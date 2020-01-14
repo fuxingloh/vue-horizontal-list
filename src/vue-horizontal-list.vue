@@ -48,7 +48,7 @@
        *
        * list.class = css class for the parent of item
        * list.windowed = maximum width of the list it can extend to, basically the container max-width
-       * list.padding = padding of the list, if container < max-width what is the left-right padding of the list
+       * list.padding = padding of the list, if container < windowed what is the left-right padding of the list
        *
        * responsive breakpoints to calculate how many items to show in the list at each width interval
        * Examples:
@@ -98,21 +98,23 @@
     },
     computed: {
       _options() {
+        const options = this.options
+
         return {
           navigation: {
-            start: this.options?.navigation?.start || 992
+            start: options && options.navigation &&  options.navigation.start || 992
           },
           item: {
-            class: this.options?.item?.class || '',
-            padding: this.options?.item?.padding || 16,
+            class: options && options.item && options.item.class || '',
+            padding: options && options.item && options.item.padding || 16,
           },
           list: {
-            class: this.options?.list?.class || '',
-            windowed: this.options?.list?.windowed || 1200,
-            padding: this.options?.list?.padding || 24,
+            class: options && options.list && options.list.class || '',
+            windowed: options && options.list && options.list.windowed || 1200,
+            padding: options && options.list && options.list.padding || 24,
           },
           responsive: [
-            ...(this.options?.responsive || []),
+            ...(options && options.responsive || []),
 
             // Fallback default responsive
             {end: 576, size: 1},
