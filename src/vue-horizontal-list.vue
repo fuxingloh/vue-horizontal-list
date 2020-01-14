@@ -1,16 +1,16 @@
 <template>
   <div class="vue-horizontal-list" ref="container">
-    <div class="vhl-navigation">
+    <div class="vhl-navigation" v-if="width.window > _options.navigation.start">
       <div @click="prev" v-if="_hasPrev"
            class="vhl-btn-left">
-        <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+        <svg fill="#000000" width="30px" height="30px">
           <path d="M 19.980469 3.9902344 A 1.0001 1.0001 0 0 0 19.292969 4.2929688 L 9.2929688 14.292969 A 1.0001 1.0001 0 0 0 9.2929688 15.707031 L 19.292969 25.707031 A 1.0001 1.0001 0 1 0 20.707031 24.292969 L 11.414062 15 L 20.707031 5.7070312 A 1.0001 1.0001 0 0 0 19.980469 3.9902344 z"/>
         </svg>
       </div>
 
       <div @click="next" v-if="_hasNext"
            class="vhl-btn-right">
-        <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+        <svg fill="#000000" width="30px" height="30px">
           <path d="M 9.9902344 3.9902344 A 1.0001 1.0001 0 0 0 9.2929688 5.7070312 L 18.585938 15 L 9.2929688 24.292969 A 1.0001 1.0001 0 1 0 10.707031 25.707031 L 20.707031 15.707031 A 1.0001 1.0001 0 0 0 20.707031 14.292969 L 10.707031 4.2929688 A 1.0001 1.0001 0 0 0 9.9902344 3.9902344 z"/>
         </svg>
       </div>
@@ -47,7 +47,7 @@
        * item.padding = padding between each item in the list
        *
        * list.class = css class for the parent of item
-       * list.maxWidth = maximum width of the list it can extend to, basically the container max-width
+       * list.windowed = maximum width of the list it can extend to, basically the container max-width
        * list.padding = padding of the list, if container < max-width what is the left-right padding of the list
        *
        * responsive breakpoints to calculate how many items to show in the list at each width interval
@@ -99,13 +99,16 @@
     computed: {
       _options() {
         return {
+          navigation: {
+            start: this.options?.navigation?.start || 992
+          },
           item: {
             class: this.options?.item?.class || '',
             padding: this.options?.item?.padding || 16,
           },
           list: {
             class: this.options?.list?.class || '',
-            maxWidth: this.options?.list?.maxWidth || 1200,
+            windowed: this.options?.list?.windowed || 1200,
             padding: this.options?.list?.padding || 24,
           },
           responsive: [
@@ -133,7 +136,7 @@
         const size = this._size
 
         // Full Screen Mode
-        if (this.width.window < this._options.list.maxWidth) {
+        if (this.width.window < this._options.list.windowed) {
           style.container.marginLeft = `-${this._options.list.padding}px`
           style.container.marginRight = `-${this._options.list.padding}px`
 
@@ -158,12 +161,16 @@
         return style
       },
 
+      _itemWidth() {
+        return (this._workingWidth - (this._size - 1) * this._options.item.padding) / this._size
+      },
+
       /**
        * @return number actual width of the container
        */
       _workingWidth() {
         // Full Screen Mode
-        if (this.width.window < this._options.list.maxWidth) {
+        if (this.width.window < this._options.list.windowed) {
           return this.width.window - this._options.list.padding * 2
         }
 
@@ -206,8 +213,7 @@
       go(position) {
         const maxPosition = this.items.length - this._size
         this.position = position > maxPosition ? maxPosition : position
-
-        this.$refs.list.scrollLeft = this._style.item.width * this.position
+        this.$refs.list.scrollLeft = this._itemWidth * this.position
       },
 
       /**
@@ -238,8 +244,6 @@
     position: absolute;
     width: 100%;
     height: 100%;
-
-    visibility: hidden;
   }
 
   .vhl-btn-left, .vhl-btn-right {
@@ -289,6 +293,7 @@
   }
 
   .vhl-item {
+    padding-top: 24px;
     padding-bottom: 24px;
   }
 
