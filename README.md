@@ -5,6 +5,12 @@ Check out [slick](https://github.com/kenwheeler/slick) if you need a complete so
 
 [Live Demo](https://nuxt-app.fuxing.dev/vue-horizontal-list)
 
+## Features
+- Scroll bar won't should up
+- Snap to nearest
+- Next card will preview (8px) on small screen 
+- Responsive design, config base at size 5, 4, 3, 2 or 1 and it size responsively with media break-point
+
 ## Usage
 ```vue
 <vue-horizontal-list>

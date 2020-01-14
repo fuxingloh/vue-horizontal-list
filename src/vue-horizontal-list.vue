@@ -1,20 +1,28 @@
 <template>
-  <div class="relative" ref="container">
-    <div class="Controls flex-align-center absolute wh-100">
+  <div class="vue-horizontal-list" ref="container">
+    <div class="vhl-navigation">
       <div @click="prev" v-if="_hasPrev"
-           class="Control Prev elevation-1 relative index-navigation hover-pointer"/>
+           class="vhl-btn-left">
+        <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+          <path d="M 19.980469 3.9902344 A 1.0001 1.0001 0 0 0 19.292969 4.2929688 L 9.2929688 14.292969 A 1.0001 1.0001 0 0 0 9.2929688 15.707031 L 19.292969 25.707031 A 1.0001 1.0001 0 1 0 20.707031 24.292969 L 11.414062 15 L 20.707031 5.7070312 A 1.0001 1.0001 0 0 0 19.980469 3.9902344 z"/>
+        </svg>
+      </div>
+
       <div @click="next" v-if="_hasNext"
-           class="Control Next elevation-1 relative index-navigation hover-pointer"/>
+           class="vhl-btn-right">
+        <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+          <path d="M 9.9902344 3.9902344 A 1.0001 1.0001 0 0 0 9.2929688 5.7070312 L 18.585938 15 L 9.2929688 24.292969 A 1.0001 1.0001 0 1 0 10.707031 25.707031 L 20.707031 15.707031 A 1.0001 1.0001 0 0 0 20.707031 14.292969 L 10.707031 4.2929688 A 1.0001 1.0001 0 0 0 9.9902344 3.9902344 z"/>
+        </svg>
+      </div>
     </div>
 
-    <div class="Parent">
-      <div class="Scrollable flex" ref="scrollable" :class="_options.list.class">
-        <div v-for="item in items" :key="_options.mapKey(item)" ref="item" class="Item index-content"
-             :class="_itemClass">
+    <div class="vhl-container" :style="_style.container">
+      <div class="vhl-list" ref="list" :class="_options.list.class" :style="_style.list">
+        <div v-for="item in items" ref="item" class="vhl-item" :class="_options.item.class" :style="_style.item">
           <slot v-bind:item="item">{{item}}</slot>
         </div>
 
-        <div class="Tail">
+        <div :style="_style.tail">
         </div>
       </div>
     </div>
@@ -25,128 +33,251 @@
   export default {
     name: "VueHorizontalList",
     props: {
+
+      /**
+       * items to display in horizontal-list
+       */
       items: {
         type: Array,
         required: true
       },
-      options: Object
+
+      /**
+       * item.class = css class for each individual item
+       * item.padding = padding between each item in the list
+       *
+       * list.class = css class for the parent of item
+       * list.maxWidth = maximum width of the list it can extend to, basically the container max-width
+       * list.padding = padding of the list, if container < max-width what is the left-right padding of the list
+       *
+       * responsive breakpoints to calculate how many items to show in the list at each width interval
+       * Examples:
+       * [{size: 5}] show 5 items regardless
+       * [{end: 992, size: 3}},{size: 4}] < 992 show 3 items, else show 4 items
+       * [{end: 576, size: 1}, {start: 576, end: 992, size: 2}, {size: 3}] < 576 show 1, 576 - 992 show 2, else show 3
+       *
+       * These are the default responsive fallback, if you don't have a catch all, it will fallback to this.
+       * [{end: 576, size: 1},
+       * {start: 576, end: 768, size: 2},
+       * {start: 768, end: 992, size: 3},
+       * {start: 992, end: 1200, size: 4},
+       * {start: 1200, size: 5}]
+       */
+      options: {
+        type: Object,
+        required: false
+      }
     },
     data() {
       return {
+        /**
+         * Current item position of list
+         */
         position: 0,
-        column: 1,
+
+        /**
+         * Width of item, list and window
+         */
         width: {
-          item: 0,
-          scroll: 0,
+          container: 0,
+          window: 576
         }
       }
+    },
+    mounted() {
+      this.$resize = () => {
+        this.width.window = window.innerWidth
+        this.width.container = this.$refs.container.clientWidth
+      }
+
+      this.$resize()
+      window.addEventListener('resize', this.$resize)
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.$resize)
     },
     computed: {
       _options() {
         return {
           item: {
-            class: this.options?.item?.class || ''
+            class: this.options?.item?.class || '',
+            padding: this.options?.item?.padding || 16,
           },
           list: {
-            class: this.options?.list?.class || ''
+            class: this.options?.list?.class || '',
+            maxWidth: this.options?.list?.maxWidth || 1200,
+            padding: this.options?.list?.padding || 24,
           },
-          size: this.options?.size || 4,
-          mapKey: this.options?.mapKey || ((item) => item.id)
+          responsive: [
+            ...(this.options?.responsive || []),
+
+            // Fallback default responsive
+            {end: 576, size: 1},
+            {start: 576, end: 768, size: 2},
+            {start: 768, end: 992, size: 3},
+            {start: 992, end: 1200, size: 4},
+            {start: 1200, size: 5},
+          ],
         }
       },
-      _itemClass() {
-        let sizes = ''
-        for (let i = 0; i < this._options.size; i++) {
-          sizes += `Size${i + 1} `
+
+      _style() {
+        const style = {
+          container: {},
+          list: {},
+          item: {},
+          tail: {}
         }
-        return this._options.item.class + ' ' + sizes
+
+        const workingWidth = this._workingWidth
+        const size = this._size
+
+        // Full Screen Mode
+        if (this.width.window < this._options.list.maxWidth) {
+          style.container.marginLeft = `-${this._options.list.padding}px`
+          style.container.marginRight = `-${this._options.list.padding}px`
+
+          style.item.width = `${(workingWidth - (size - 1) * this._options.item.padding) / size}px`
+          style.item.paddingLeft = `${this._options.list.padding}px`
+          style.item.paddingRight = `${this._options.item.padding}px`
+          style.item.marginRight = `-${this._options.list.padding}px`
+        }
+
+        // Windowed Mode
+        else {
+          style.item.paddingLeft = `${this._options.item.padding / 2}px`
+          style.item.paddingRight = `${this._options.item.padding / 2}px`
+
+          style.container.marginLeft = `-${this._options.item.padding / 2}px`
+          style.container.marginRight = `-${this._options.item.padding / 2}px`
+
+          style.item.width = `${(workingWidth - (size - 1) * this._options.item.padding) / size}px`
+
+        }
+
+        return style
       },
+
+      /**
+       * @return number actual width of the container
+       */
+      _workingWidth() {
+        // Full Screen Mode
+        if (this.width.window < this._options.list.maxWidth) {
+          return this.width.window - this._options.list.padding * 2
+        }
+
+        // Windowed Mode
+        else {
+          return this.width.container
+        }
+      },
+
+      /**
+       * @return visible items in horizontal list at the current width/state
+       */
+      _size() {
+        const width = this._workingWidth
+        return this._options.responsive.find(value => {
+          return (!value.start || value.start <= width) && (!value.end || value.end >= width)
+        }).size
+      },
+
+      /**
+       * @return boolean whether there is prev set of items for navigation
+       * @private internal use
+       */
       _hasNext() {
-        return this.items.length > this.position + this.column
+        return this.items.length > this.position + this._size
       },
+
+      /**
+       * @return boolean whether there is next set of items for navigation
+       * @private internal use
+       */
       _hasPrev() {
         return this.position > 0
       },
     },
-    mounted() {
-      if (this.$refs.item) {
-        this.width.item = this.$refs.item[0].clientWidth
-      }
-
-      if (this.$refs.scrollable) {
-        this.width.scroll = this.$refs.scrollable.clientWidth
-      }
-
-      this.column = Math.round(this.width.scroll / this.width.item)
-    },
     methods: {
+      /**
+       * @param position of item to scroll to
+       */
       go(position) {
-        const maxPosition = this.items.length - this.column
+        const maxPosition = this.items.length - this._size
         this.position = position > maxPosition ? maxPosition : position
 
-        this.$refs.scrollable.scrollLeft = this.width.item * this.position
+        this.$refs.list.scrollLeft = this._style.item.width * this.position
       },
+
+      /**
+       * Go to a set of previous items
+       */
       prev() {
-        this.go(this.position - this.column)
+        this.go(this.position - this._size)
       },
+
+      /**
+       * Go to a set of next items
+       */
       next() {
-        this.go(this.position + this.column)
+        this.go(this.position + this._size)
       },
     }
   }
 </script>
 
-<style scoped lang="less">
-  .Next, .Prev {
-    width: 46px;
-    height: 46px;
+<style scoped>
+  .vue-horizontal-list {
+    position: relative;
+  }
 
-    border-radius: 23px;
+  .vhl-navigation {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    visibility: hidden;
+  }
+
+  .vhl-btn-left, .vhl-btn-right {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 24px;
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
-    &::after {
-      position: absolute;
-      content: "";
-
-      top: calc(50%);
-      margin-top: -6px;
-      height: 14px;
-      width: 14px;
-      border-right: 2px solid rgba(0, 0, 0, 0.85);
-      border-bottom: 2px solid rgba(0, 0, 0, 0.85);
-    }
+    z-index: 2;
   }
 
-  .Prev {
-    margin-left: -18px;
+  .vhl-btn-left:hover, .vhl-btn-right:hover {
+    cursor: pointer;
+  }
+
+  .vhl-btn-left {
+    margin-left: -24px;
     margin-right: auto;
-
-    &::after {
-      margin-left: 19px;
-      transform: rotate(135deg);
-    }
   }
 
-  .Next {
+  .vhl-btn-right {
     margin-left: auto;
-    margin-right: -18px;
-
-    &::after {
-      margin-left: 13px;
-      transform: rotate(-45deg);
-    }
+    margin-right: -24px;
   }
-</style>
 
-<style scoped lang="less">
-  .Parent {
+  .vhl-container {
     overflow-y: hidden;
     height: 100%;
     margin-bottom: -24px;
   }
 
-  .Scrollable {
+  .vhl-list {
+    display: flex;
     padding-bottom: 24px;
     margin-bottom: -24px;
 
@@ -155,78 +286,18 @@
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-
-    > * {
-      scroll-snap-align: start;
-      flex-shrink: 0;
-    }
   }
 
-  .Controls {
-    visibility: hidden;
-
-    @media (min-width: 992px) {
-      visibility: initial;
-    }
-  }
-</style>
-
-<style scoped lang="less">
-  .Parent {
-    margin: -24px;
+  .vhl-item {
+    padding-bottom: 24px;
   }
 
-  .Item {
-    padding: 24px 0 24px 24px;
-    margin-right: -8px;
+  .vhl-list > * {
+    scroll-snap-align: start;
+    flex-shrink: 0;
   }
 
-  .Tail {
-    width: 32px;
-  }
-
-  @media (max-width: 576px) {
-    .Size1 {
-      flex: 0 0 calc(100% - 24px);
-      max-width: calc(100% - 24px);
-    }
-  }
-
-  @media (min-width: 576px) {
-    .Size2 {
-      flex: 0 0 calc((100% - 16px) / 2);
-      max-width: calc((100% - 16px) / 2);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .Size3 {
-      flex: 0 0 calc((100% - 8px) / 3);
-      max-width: calc((100% - 8px) / 3);
-    }
-  }
-
-  @media (min-width: 992px) {
-    .Size4 {
-      flex: 0 0 25%;
-      max-width: 25%;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .Parent {
-      margin-left: -12px;
-      margin-right: -12px;
-    }
-
-    .Item {
-      padding: 24px 12px 24px 12px;
-      margin-right: 0;
-    }
-
-    .Size5 {
-      flex: 0 0 20%;
-      max-width: 20%;
-    }
+  .vhl-item {
+    z-index: 1;
   }
 </style>
