@@ -295,6 +295,8 @@
   }
 
   .vhl-item {
+    box-sizing: content-box;
+
     padding-top: 24px;
     padding-bottom: 24px;
   }
