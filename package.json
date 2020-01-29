@@ -5,9 +5,9 @@
   "author": "Fuxing Loh",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fuxingloh/vue-horizonal-list.git"
+    "url": "https://github.com/fuxingloh/vue-horizontal-list.git"
   },
-  "bugs": "https://github.com/fuxingloh/vue-horizonal-list/issues",
+  "bugs": "https://github.com/fuxingloh/vue-horizontal-list/issues",
   "keywords": [
     "vue",
     "vuejs",
