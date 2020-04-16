@@ -52,6 +52,10 @@
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   },
+  "resolutions": {
+    "minimist": "^1.2.2",
+    "acorn@>=7.0.0 <7.1.1": "^7.1.1"
+  },
   "peerDependencies": {
     "vue": "^2.6.10"
   },
