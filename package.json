@@ -1,6 +1,6 @@
 {
   "name": "vue-horizontal-list",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A pure vue ssr friendly horizontal list implementation.",
   "author": "Fuxing Loh",
   "repository": {
