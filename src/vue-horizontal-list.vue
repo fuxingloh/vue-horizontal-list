@@ -3,15 +3,15 @@
     <div class="vhl-navigation" v-if="width.window > _options.navigation.start">
       <div @click="prev" v-if="_hasPrev"
            class="vhl-btn-left">
-        <svg fill="#000000" width="30px" height="30px">
-          <path d="M 19.980469 3.9902344 A 1.0001 1.0001 0 0 0 19.292969 4.2929688 L 9.2929688 14.292969 A 1.0001 1.0001 0 0 0 9.2929688 15.707031 L 19.292969 25.707031 A 1.0001 1.0001 0 1 0 20.707031 24.292969 L 11.414062 15 L 20.707031 5.7070312 A 1.0001 1.0001 0 0 0 19.980469 3.9902344 z"/>
+        <svg :fill="_options.navigation.color" width="32px" height="32px" viewBox="0 0 24 24">
+          <path d="M10.757 12l4.95 4.95a1 1 0 1 1-1.414 1.414l-5.657-5.657a1 1 0 0 1 0-1.414l5.657-5.657a1 1 0 0 1 1.414 1.414L10.757 12z"/>
         </svg>
       </div>
 
       <div @click="next" v-if="_hasNext"
            class="vhl-btn-right">
-        <svg fill="#000000" width="30px" height="30px">
-          <path d="M 9.9902344 3.9902344 A 1.0001 1.0001 0 0 0 9.2929688 5.7070312 L 18.585938 15 L 9.2929688 24.292969 A 1.0001 1.0001 0 1 0 10.707031 25.707031 L 20.707031 15.707031 A 1.0001 1.0001 0 0 0 20.707031 14.292969 L 10.707031 4.2929688 A 1.0001 1.0001 0 0 0 9.9902344 3.9902344 z"/>
+        <svg :fill="_options.navigation.color" width="32px" height="32px" viewBox="0 0 24 24">
+          <path d="M13.314 12.071l-4.95-4.95a1 1 0 0 1 1.414-1.414l5.657 5.657a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 0 1-1.414-1.414l4.95-4.95z"/>
         </svg>
       </div>
     </div>
@@ -102,7 +102,8 @@
 
         return {
           navigation: {
-            start: options && options.navigation &&  options.navigation.start || 992
+            start: options && options.navigation && options.navigation.start || 992,
+            color: options && options.navigation && options.navigation.color || '#000',
           },
           item: {
             class: options && options.item && options.item.class || '',
