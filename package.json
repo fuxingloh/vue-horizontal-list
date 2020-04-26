@@ -1,6 +1,6 @@
 {
   "name": "vue-horizontal-list",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A pure vue ssr friendly horizontal list implementation.",
   "author": "Fuxing Loh",
   "repository": {
@@ -20,11 +20,6 @@
   "main": "dist/vue-horizontal-list.ssr.js",
   "module": "dist/vue-horizontal-list.esm.js",
   "unpkg": "dist/vue-horizontal-list.min.js",
-  "files": [
-    "dist/*",
-    "src/**/*.vue",
-    "!src/serve-dev.*"
-  ],
   "scripts": {
     "serve": "vue-cli-service serve src/serve-dev.js",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
