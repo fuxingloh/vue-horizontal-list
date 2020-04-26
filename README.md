@@ -1,22 +1,33 @@
 # vue-horizontal-list
-A pure vue horizontal list implementation with ssr, mobile, touch screen support.
-I created this because I like how AirBnb does their horizontal list, I couldn't find a library that is close to it.
-Check out [slick](https://github.com/kenwheeler/slick) if you need a complete solution.  
+TLDR: A pure vue horizontal list implementation with 0 dependencies, ssr support, mobile friendly, touch friendly and responsive.
 
-[Live Demo](https://nuxt-app.now.sh/vue-horizontal-list)
+Check it out: [vue-horizontal-list demo](https://nuxt-app.now.sh/vue-horizontal-list).
+
+[![vue-horizontal-list screenshot](demo.png)](https://nuxt-app.now.sh/vue-horizontal-list)
+
+
+## Installation
+```shell script
+npm i vue-horizontal-list
+# or
+yarn add vue-horizontal-list
+```
 
 ## Features
-- Invisible scroll bar
-- Snap to nearest item in the horizontal-list
-- Windowed & Full-screen mode
-  - Windowed mode will respect the container and not show overflowing item
-  - Full-screen mode will show overflowing item, best result for small screen
-- Dynamic responsive breakpoint configuration
-- Navigation control will show up dynamically for larger screen
-- Touch screen friendly
-- Minimal config setup
+* Lightweight implementation with 0 dependencies.
+* SSR supported
+* Mobile touch screen friendly
+* Invisible scroll bar for consistent Windows and MacOS browsing experience.
+* Snap to the nearest item in the horizontal-list when scrolling.
+* Windowed & Full-screen mode
+  * The windowed mode will respect the container and not show overflowing item
+  * Full-screen mode will show overflowing item, best result for small screen
+* Dynamic responsive breakpoint configuration
+* Navigation control will show up dynamically for larger screen
+* Touch screen friendly
+* Minimal config setup
 
-## Options Overview
+## Options
 ```js
 const options = {
   item: {
@@ -46,12 +57,15 @@ const options = {
   ],
   navigation: {
     // when to show navigation
-    start: 992 
+    start: 992,
+    color: '#000'
   }
 } 
 ```
 
-## Basic Responsive Usage
+## Examples
+
+### Basic Responsive Usage
 - Width between 0 - 576, show 1
 - Width between 576 - 768, show 2
 - Width catch all, show 3
@@ -67,7 +81,7 @@ const options = {
 </vue-horizontal-list>
 ```
 
-## Full Example
+### Full Example
 ```vue
 <template>
   <div id="app">
@@ -142,23 +156,5 @@ const options = {
 </style>
 ```
 
-
-## Installation
-NPM
-```shell script
-npm i vue-horizontal-list
-```
-
-Yarn
-```shell script
-yarn add vue-horizontal-list
-```
-
-## Building & Publishing
-```shell script
-yarn run build
-yarn publish
-```
-
-## License
-MIT
+## Motivation
+I created this because I like how AirBnb does their horizontal list, I couldn't find a library that is close to it.
