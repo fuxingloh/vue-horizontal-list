@@ -1,7 +1,8 @@
 # vue-horizontal-list
 TLDR: A pure vue horizontal list implementation with 0 dependencies, ssr support, mobile friendly, touch friendly and responsive.
 
-Check it out:[vue-horizontal-list demo](https://nuxt-app.now.sh/vue-horizontal-list)
+Check it out: [vue-horizontal-list demo](https://nuxt-app.now.sh/vue-horizontal-list).
+
 [![vue-horizontal-list screenshot](demo.png)](https://nuxt-app.now.sh/vue-horizontal-list)
 
 
