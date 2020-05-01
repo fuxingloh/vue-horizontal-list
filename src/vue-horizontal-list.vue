@@ -30,6 +30,10 @@
 </template>
 
 <script>
+  import smoothscroll from 'smoothscroll-polyfill';
+
+  smoothscroll.polyfill();
+
   export default {
     name: "VueHorizontalList",
     props: {
@@ -216,7 +220,9 @@
       go(position) {
         const maxPosition = this.items.length - this._size
         this.position = position > maxPosition ? maxPosition : position
-        this.$refs.list.scrollLeft = this._itemWidth * this.position
+
+        const left = this._itemWidth * this.position + this.position * this._options.item.padding
+        this.$refs.list.scrollTo({top: 0, left: left, behavior: 'smooth'})
       },
 
       /**
