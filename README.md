@@ -1,5 +1,5 @@
 # vue-horizontal-list
-A pure vue horizontal list implementation with 0 dependencies, ssr support, mobile friendly, touch friendly and responsive. 
+A pure vue horizontal list implementation with minimal dependencies, ssr support, mobile friendly, touch friendly and responsive. 
 I created this because I like how AirBnb does their horizontal list, I couldn't find a library that is simple and close to it.
 
 Check it out: [vue-horizontal-list demo](https://nuxt-app.now.sh/vue-horizontal-list).
@@ -15,7 +15,7 @@ yarn add vue-horizontal-list
 ```
 
 ## Features
-* Lightweight implementation with 0 dependencies.
+* Lightweight implementation with 1 dependencies.
 * SSR supported
 * Mobile touch screen friendly
 * Invisible scroll bar for consistent Windows and MacOS browsing experience.
@@ -27,6 +27,7 @@ yarn add vue-horizontal-list
 * Navigation control will show up dynamically for larger screen
 * Touch screen friendly
 * Minimal config setup
+* Tested on chrome, edge and safari
 
 ## Options
 ```js
