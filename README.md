@@ -157,3 +157,6 @@ const options = {
   }
 </style>
 ```
+
+## Contributing
+For any question or feature request please feel free to create an [issue](https://github.com/fuxingloh/vue-horizontal-list/issues/new) or [pull request](https://github.com/fuxingloh/vue-horizontal-list/pulls).
