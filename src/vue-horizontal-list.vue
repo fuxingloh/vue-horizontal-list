@@ -30,9 +30,9 @@
 </template>
 
 <script>
-  import smoothscroll from 'smoothscroll-polyfill';
-
-  smoothscroll.polyfill();
+  if (!process.server || process.client) {
+    require('smoothscroll-polyfill').polyfill();
+  }
 
   export default {
     name: "VueHorizontalList",
@@ -47,8 +47,8 @@
       },
 
       /**
-       * item.class = css class for each individual item
-       * item.padding = padding between each item in the list
+       * item.class = css class for each individual item.
+       * item.padding = padding between each item in the list.
        *
        * list.class = css class for the parent of item
        * list.windowed = maximum width of the list it can extend to, basically the container max-width
