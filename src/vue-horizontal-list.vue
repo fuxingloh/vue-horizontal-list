@@ -30,10 +30,6 @@
 </template>
 
 <script>
-  if (!process.server || process.client) {
-    require('smoothscroll-polyfill').polyfill();
-  }
-
   export default {
     name: "VueHorizontalList",
     props: {
@@ -93,6 +89,9 @@
         this.width.window = window.innerWidth
         this.width.container = this.$refs.container.clientWidth
       }
+
+      // Added a simple SSR fix, need to look into it for optimization in the future
+      require('smoothscroll-polyfill').polyfill();
 
       this.$resize()
       window.addEventListener('resize', this.$resize)
