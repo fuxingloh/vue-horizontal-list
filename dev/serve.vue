@@ -62,6 +62,17 @@
       </vue-horizontal-list>
     </section>
 
+    <section>
+      <vue-horizontal-list :items="items" :options="{item: {padding: 0}}">
+        <template v-slot:default="{item}">
+          <div class="item">
+            <h5>{{item.title}}</h5>
+            <p>{{item.content}}</p>
+          </div>
+        </template>
+      </vue-horizontal-list>
+    </section>
+
   </div>
 </template>
 

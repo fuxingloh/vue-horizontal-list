@@ -105,20 +105,20 @@
 
         return {
           navigation: {
-            start: options && options.navigation && options.navigation.start || 992,
-            color: options && options.navigation && options.navigation.color || '#000',
+            start: options?.navigation?.start ?? 992,
+            color: options?.navigation?.color ?? '#000',
           },
           item: {
-            class: options && options.item && options.item.class || '',
-            padding: options && options.item && options.item.padding || 16,
+            class: options?.item?.class ?? '',
+            padding: options?.item?.padding ?? 16,
           },
           list: {
-            class: options && options.list && options.list.class || '',
-            windowed: options && options.list && options.list.windowed || 1200,
-            padding: options && options.list && options.list.padding || 24,
+            class: options?.list?.class ?? '',
+            windowed: options?.list?.windowed ?? 1200,
+            padding: options?.list?.padding ?? 24,
           },
           responsive: [
-            ...(options && options.responsive || []),
+            ...(options?.responsive ?? []),
 
             // Fallback default responsive
             {end: 576, size: 1},
