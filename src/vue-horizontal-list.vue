@@ -245,7 +245,6 @@
        * On horizontal scroll re-evaluate the actual position
        */
       scrollHandler() {
-        console.log('scroll')
         clearTimeout(this.scrollTimer);
     
         //Renew timer
@@ -256,7 +255,6 @@
 
           let itemPosition = items.indexOf(Math.min(...items));
           this.position = itemPosition;
-          console.log(`new position: ${itemPosition}`)
         }.bind(this), 50);
       },
     }
