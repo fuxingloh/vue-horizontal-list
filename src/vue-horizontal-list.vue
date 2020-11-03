@@ -253,7 +253,7 @@
             Math.abs(this.$refs.item[index].getBoundingClientRect().left)
           );
 
-          let itemPosition = items.indexOf(Math.min(...items));
+          const itemPosition = items.indexOf(Math.min(...items));
           this.position = itemPosition;
         }.bind(this), 50);
       },
