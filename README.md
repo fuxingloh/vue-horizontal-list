@@ -71,7 +71,7 @@ const options = {
 ### Basic Responsive Usage
 - Width between 0 - 576, show 1
 - Width between 576 - 768, show 2
-- Width catch all, show 3
+- Width fallback, show 3
 
 ```vue
 <vue-horizontal-list :items="items" :options="{responsive: [{end: 576, size: 1}, {start: 576, end: 768, size: 2},{size: 3}]}">
