@@ -246,7 +246,7 @@
        */
       scrollHandler() {
         clearTimeout(this.scrollTimer);
-    
+
         //Renew timer
         this.scrollTimer = setTimeout(function () {
           const items = this.items.map((item, index) =>
@@ -272,6 +272,8 @@
     position: absolute;
     width: 100%;
     height: 100%;
+
+    margin-top: -6px;
   }
 
   .vhl-btn-left, .vhl-btn-right {
