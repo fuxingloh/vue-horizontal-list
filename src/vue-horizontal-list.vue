@@ -17,7 +17,7 @@
     </div>
 
     <div class="vhl-container" :style="_style.container">
-      <div class="vhl-list" ref="list" :class="_options.list.class" :style="_style.list">
+      <div class="vhl-list" ref="list" :class="_options.list.class" :style="_style.list" @scroll="scrollHandler">
         <div v-for="item in items" ref="item" class="vhl-item" :class="_options.item.class" :style="_style.item">
           <slot v-bind:item="item">{{item}}</slot>
         </div>
@@ -81,7 +81,11 @@
         width: {
           container: 0,
           window: 576
-        }
+        },
+         /**
+         * Debounce timer of the scroll
+         */
+        scrollTimer: null,
       }
     },
     mounted() {
@@ -236,6 +240,22 @@
        */
       next() {
         this.go(this.position + this._size)
+      },
+      /**
+       * On horizontal scroll re-evaluate the actual position
+       */
+      scrollHandler() {
+        clearTimeout(this.scrollTimer);
+    
+        //Renew timer
+        this.scrollTimer = setTimeout(function () {
+          const items = this.items.map((item, index) =>
+            Math.abs(this.$refs.item[index].getBoundingClientRect().left)
+          );
+
+          const itemPosition = items.indexOf(Math.min(...items));
+          this.position = itemPosition;
+        }.bind(this), 50);
       },
     }
   }
