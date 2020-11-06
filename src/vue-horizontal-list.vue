@@ -141,7 +141,7 @@
           ],
           autoplay: {
             play:  options?.autoplay?.play ?? false,
-            speed: options?.autoplay?.speed ?? 1500,
+            speed: options?.autoplay?.speed ?? 2000,
             repeat:  options?.autoplay?.repeat ?? false,
             startOnIndex: options?.autoplay?.startOnIndex ?? 0,
           }
@@ -248,11 +248,12 @@
         this.position = this._options.autoplay.startOnIndex;
         this.autoPlayInterval = setInterval(function() {
           if (this._options.autoplay.repeat && this.position === this.items.length - this._size) {
-            this.position = 1;
+            this.position = 0;
             this.go(this.position)
+          } else {
+            this.position += 1;
+            this.go(this.position);
           }
-          this.position += 1;
-          this.go(this.position);
         }.bind(this), this._options.autoplay.speed);
       },
       /**
