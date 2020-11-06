@@ -86,6 +86,10 @@
          * Debounce timer of the scroll
          */
         scrollTimer: null,
+        /**
+         * Interval of the autoPlay
+         */
+        autoPlayInterval: null, 
       }
     },
     mounted() {
@@ -99,6 +103,10 @@
 
       this.$resize()
       window.addEventListener('resize', this.$resize)
+
+      if (this._options.autoplay.play) {
+        this.runAutoPlay()
+      }
     },
     beforeDestroy() {
       window.removeEventListener('resize', this.$resize)
@@ -131,9 +139,15 @@
             {start: 992, end: 1200, size: 4},
             {start: 1200, size: 5},
           ],
+          autoplay: {
+            play:  options?.autoplay?.play ?? true,
+            speed: options?.autoplay?.speed ?? 500,
+            repeat:  options?.autoplay?.repeat ?? false,
+            startOnIndex: options?.autoplay?.startOnIndex ?? 0,
+          }
         }
       },
-
+   
       _style() {
         const style = {
           container: {},
@@ -227,7 +241,26 @@
         const left = this._itemWidth * this.position + this.position * this._options.item.padding
         this.$refs.list.scrollTo({top: 0, left: left, behavior: 'smooth'})
       },
-
+       /**
+       * Run autoPlay slide show
+       */
+      runAutoPlay() {
+        this.position = this._options.autoplay.startOnIndex;
+        this.autoPlayInterval = setInterval(function() {
+          if (this._options.autoplay.repeat && this.position === this.items.length - this._size) {
+            this.position = 1;
+            this.go(this.position)
+          }
+          this.position += 1;
+          this.go(this.position);
+        }.bind(this), this._options.autoplay.speed);
+      },
+      /**
+       * Stop autoPlay slide show
+       */
+      stopAutoPlay() {
+        clearInterval(this.autoPlayInterval);
+      },
       /**
        * Go to a set of previous items
        */
@@ -256,6 +289,15 @@
           const itemPosition = items.indexOf(Math.min(...items));
           this.position = itemPosition;
         }.bind(this), 50);
+      },
+    },
+    watch:{
+      'options.autoplay.play': function(newVal, oldVal) {
+          if (!newVal) {
+            this.stopAutoPlay()
+          } else {
+            this.runAutoPlay()
+          }
       },
     }
   }
