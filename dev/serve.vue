@@ -29,7 +29,7 @@
 
     <section>
       <vue-horizontal-list :items="items"
-                           :options="{responsive: [{end: 576, size: 1}, {start: 576, end: 768, size: 2},{size: 3}]}">
+                           :options="{responsive: [{end: 576, size: 1}, {start: 576, end: 768, size: 2},{size: 3}], autoplay: { play: true, repeat: true}}">
         <template v-slot:default="{item}">
           <div class="item">
             <h5>{{item.title}}</h5>
