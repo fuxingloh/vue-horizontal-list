@@ -140,8 +140,8 @@
             {start: 1200, size: 5},
           ],
           autoplay: {
-            play:  options?.autoplay?.play ?? true,
-            speed: options?.autoplay?.speed ?? 500,
+            play:  options?.autoplay?.play ?? false,
+            speed: options?.autoplay?.speed ?? 1500,
             repeat:  options?.autoplay?.repeat ?? false,
             startOnIndex: options?.autoplay?.startOnIndex ?? 0,
           }
