@@ -18,8 +18,17 @@
 
     <div class="vhl-container" :style="_style.container">
       <div class="vhl-list" ref="list" :class="_options.list.class" :style="_style.list" @scroll="scrollHandler">
+
+         <div v-if="$slots['start']" ref="start" class="vhl-item" :class="_options.item.class" :style="_style.item" >
+          <slot name="start"></slot>
+        </div>
+
         <div v-for="item in items" ref="item" class="vhl-item" :class="_options.item.class" :style="_style.item">
           <slot v-bind:item="item">{{item}}</slot>
+        </div>
+
+        <div v-if="$slots['end']" ref="end" class="vhl-item" :class="_options.item.class" :style="_style.item" >
+          <slot name="end"></slot>
         </div>
 
         <div :style="_style.tail">
@@ -90,6 +99,11 @@
          * Interval of the autoPlay
          */
         autoPlayInterval: null, 
+        /**
+         * the total number of items with an optional 
+         * item at the beginning or end
+         */
+        totalCount: 0,
       }
     },
     mounted() {
@@ -107,6 +121,10 @@
       if (this._options.autoplay.play) {
         this.runAutoPlay()
       }
+
+      this.totalCount = this.items.length;
+      this.totalCount += this.$slots['start'] ? 1 : 0;
+      this.totalCount += this.$slots['end'] ? 1 : 0;
     },
     beforeDestroy() {
       window.removeEventListener('resize', this.$resize)
@@ -219,7 +237,7 @@
        * @private internal use
        */
       _hasNext() {
-        return this.items.length > this.position + this._size
+        return this.totalCount > this.position + this._size
       },
 
       /**
@@ -235,7 +253,7 @@
        * @param position of item to scroll to
        */
       go(position) {
-        const maxPosition = this.items.length - this._size
+        const maxPosition = this.totalCount - this._size
         this.position = position > maxPosition ? maxPosition : position
 
         const left = this._itemWidth * this.position + this.position * this._options.item.padding
@@ -247,7 +265,7 @@
       runAutoPlay() {
         this.position = this._options.autoplay.startOnIndex;
         this.autoPlayInterval = setInterval(function() {
-          if (this._options.autoplay.repeat && this.position === this.items.length - this._size) {
+          if (this._options.autoplay.repeat && this.position === this.totalCount - this._size) {
             this.position = 0;
             this.go(this.position)
           } else {
@@ -283,9 +301,18 @@
 
         //Renew timer
         this.scrollTimer = setTimeout(function () {
-          const items = this.items.map((item, index) =>
+          let items = this.items.map((item, index) =>
             Math.abs(this.$refs.item[index].getBoundingClientRect().left)
           );
+
+          if (this.$slots['start']) {
+            const startItem = Math.abs(this.$refs.start.getBoundingClientRect().left);
+            items = [startItem, ...items];
+          }
+          if (this.$slots['end']) {
+            const endItem = Math.abs(this.$refs.end.getBoundingClientRect().left);
+            items = [...items, endItem];
+          }
 
           const itemPosition = items.indexOf(Math.min(...items));
           this.position = itemPosition;
