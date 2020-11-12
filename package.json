@@ -31,7 +31,9 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "prettier:format": "prettier --write .",
+    "prettier:check": "prettier --check ."
   },
   "dependencies": {
     "smoothscroll-polyfill": "^0.4.4"
@@ -47,6 +49,7 @@
     "@vue/cli-service": "^4.3.1",
     "cross-env": "^7.0.2",
     "minimist": "^1.2.5",
+    "prettier": "^2.1.2",
     "rollup": "^2.7.3",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-terser": "^5.3.0",
