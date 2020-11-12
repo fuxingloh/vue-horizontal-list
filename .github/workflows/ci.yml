@@ -18,3 +18,19 @@ jobs:
 
       - run: yarn install --frozen-lockfile
       - run: yarn build
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v3.1
+        with:
+          dry: True
+          only_changed: True
