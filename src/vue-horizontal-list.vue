@@ -75,7 +75,16 @@
       options: {
         type: Object,
         required: false
-      }
+      },
+      /**
+      * From the parent component you can send propPosition to set the initial slide. 
+      * Also since prop values are passed down to child components you can now control the slides from parent component
+      * For e.g. You have a list with 5 items. You can now start the horizontal slides from the 2nd item
+      */
+      propPosition: {
+        type: Number,
+        required: false
+      },
     },
     data() {
       return {
@@ -121,6 +130,10 @@
       if (this._options.autoplay.play) {
         this.runAutoPlay()
       }
+      
+      if(this.propPosition) {
+         this.go(this.propPosition)
+      }      
 
       this.totalCount = this.items.length;
       this.totalCount += this.$slots['start'] ? 1 : 0;
