@@ -40,13 +40,13 @@ yarn add vue-horizontal-list
 const options = {
   item: {
     // css class to inject into each individual item
-    class: '',
+    class: "",
     // padding between each item
     padding: 12,
   },
   list: {
     // css class for the parent of item
-    class: '',
+    class: "",
     // maximum width of the list it can extend to before switching to windowed mode, basically think of the bootstrap container max-width
     // windowed is used to toggle between full-screen mode and container mode
     windowed: 1200,
@@ -66,7 +66,7 @@ const options = {
   navigation: {
     // when to show navigation
     start: 992,
-    color: '#000',
+    color: "#000",
   },
   autoplay: {
     // enable/disable playing slideshow
@@ -139,11 +139,11 @@ const options = {
 </template>
 
 <script>
-import Vue from 'vue';
-import VueHorizontalList from '@/vue-horizontal-list.vue';
+import Vue from "vue";
+import VueHorizontalList from "@/vue-horizontal-list.vue";
 
 export default Vue.extend({
-  name: 'ServeDev',
+  name: "ServeDev",
   components: {
     VueHorizontalList,
   },
@@ -165,7 +165,7 @@ export default Vue.extend({
         },
         autoplay: { play: true, repeat: true }, // 2 seconds delay is by default
       },
-      items: [{ title: 'Item 0', content: 'Content item with description' }],
+      items: [{ title: "Item 0", content: "Content item with description" }],
     };
   },
 });
