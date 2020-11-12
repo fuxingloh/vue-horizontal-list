@@ -162,6 +162,7 @@ export default {
       return {
         navigation: {
           start: options?.navigation?.start ?? 992,
+          // TODO(fuxing): Deprecate this in favor of navigation slot
           color: options?.navigation?.color ?? "#000",
         },
         item: {
