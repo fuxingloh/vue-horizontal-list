@@ -6,7 +6,7 @@ on:
 
 jobs:
   yarn:
-    name: Run yarn test
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
