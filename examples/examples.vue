@@ -12,6 +12,8 @@
 
     <auto-play />
 
+    <nav-prev-next-slot />
+
     <item-customization />
   </div>
 </template>
@@ -26,10 +28,12 @@ import Responsive from "./responsive";
 import ItemCustomization from "./item-customization";
 import AutoPlay from "./auto-play";
 import LeftRightSlot from "./left-right-slot";
+import NavPrevNextSlot from "./nav-prev-next-slot";
 
 export default Vue.extend({
   name: "ServeDev",
   components: {
+    NavPrevNextSlot,
     LeftRightSlot,
     AutoPlay,
     ItemCustomization,
