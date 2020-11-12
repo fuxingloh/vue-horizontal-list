@@ -68,11 +68,13 @@ const options = {
     start: 992,
     color: "#000",
   },
+  position: {
+    // Start from '1' on mounted.
+    start: 1,
+  },
   autoplay: {
     // enable/disable playing slideshow
     play: true,
-    // the start index of the item when autoplay begins
-    startOnIndex: 2,
     // the delay duration between slides in milliseconds
     speed: 1800,
     // if setup, the slideshow will be in the loop.

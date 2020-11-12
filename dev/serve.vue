@@ -2,13 +2,13 @@
   <div id="app">
     <div class="item">
       <h5>Non scrollable</h5>
-      <p>For comparision</p>
+      <p>For comparison</p>
     </div>
 
     <section>
       <vue-horizontal-list
         :items="items"
-        :options="{ responsive: [{ size: 1 }] }"
+        :options="{ responsive: [{ size: 1 }], position: { start: 2 } }"
       >
         <template v-slot:default="{ item }">
           <div class="item">
@@ -132,7 +132,7 @@
             { start: 576, end: 768, size: 2 },
             { size: 3 },
           ],
-          autoplay: { play: true, repeat: true, speed: 1200 },
+          autoplay: { play: true, repeat: true, speed: 2500 },
         }"
       >
         <template v-slot:start>
@@ -314,10 +314,12 @@ p {
   background: #ffe6e6;
   height: 92px;
 }
+
 .icon {
   display: flex;
   justify-content: center;
 }
+
 .item {
   padding: 16px 24px;
   border-radius: 3px;

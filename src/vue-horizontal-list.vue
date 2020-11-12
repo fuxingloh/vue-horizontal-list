@@ -37,33 +37,17 @@
         @scroll="scrollHandler"
       >
         <div
-          v-if="$slots['start']"
-          ref="start"
-          class="vhl-item"
-          :class="_options.item.class"
-          :style="_style.item"
-        >
-          <slot name="start"></slot>
-        </div>
-
-        <div
-          v-for="item in items"
+          v-for="item in _items"
           ref="item"
           class="vhl-item"
           :class="_options.item.class"
           :style="_style.item"
         >
-          <slot v-bind:item="item">{{ item }}</slot>
-        </div>
-
-        <div
-          v-if="$slots['end']"
-          ref="end"
-          class="vhl-item"
-          :class="_options.item.class"
-          :style="_style.item"
-        >
-          <slot name="end"></slot>
+          <slot v-if="item.type === 'start'" name="start"></slot>
+          <slot v-else-if="item.type === 'end'" name="end"></slot>
+          <slot v-else-if="item.type === 'item'" v-bind:item="item.item">{{
+            item
+          }}</slot>
         </div>
 
         <div :style="_style.tail"></div>
@@ -109,15 +93,6 @@ export default {
       type: Object,
       required: false,
     },
-    /**
-     * From the parent component you can send propPosition to set the initial slide.
-     * Also since prop values are passed down to child components you can now control the slides from parent component
-     * For e.g. You have a list with 5 items. You can now start the horizontal slides from the 2nd item
-     */
-    propPosition: {
-      type: Number,
-      required: false,
-    },
   },
   data() {
     return {
@@ -141,11 +116,6 @@ export default {
        * Interval of the autoPlay
        */
       autoPlayInterval: null,
-      /**
-       * the total number of items with an optional
-       * item at the beginning or end
-       */
-      totalCount: 0,
     };
   },
   mounted() {
@@ -154,28 +124,38 @@ export default {
       this.width.container = this.$refs.container.clientWidth;
     };
 
+    // TODO(fuxing): Need to re-do this
     // Added a simple SSR fix, need to look into it for optimization in the future
     require("smoothscroll-polyfill").polyfill();
 
     this.$resize();
     window.addEventListener("resize", this.$resize);
 
+    if (this._options.position.start) {
+      this.$nextTick(() => {
+        this.go(this._options.position.start);
+      });
+    }
+
     if (this._options.autoplay.play) {
       this.runAutoPlay();
     }
-
-    if (this.propPosition) {
-      this.go(this.propPosition);
-    }
-
-    this.totalCount = this.items.length;
-    this.totalCount += this.$slots["start"] ? 1 : 0;
-    this.totalCount += this.$slots["end"] ? 1 : 0;
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.$resize);
   },
   computed: {
+    _items() {
+      return [
+        ...(this.$slots["start"] ? [{ type: "start" }] : []),
+        ...this.items.map((value) => ({ type: "item", item: value })),
+        ...(this.$slots["end"] ? [{ type: "end" }] : []),
+      ];
+    },
+    _length() {
+      return this._items.length;
+    },
+
     _options() {
       const options = this.options;
 
@@ -203,11 +183,13 @@ export default {
           { start: 992, end: 1200, size: 4 },
           { start: 1200, size: 5 },
         ],
+        position: {
+          start: options?.position?.start ?? 0,
+        },
         autoplay: {
           play: options?.autoplay?.play ?? false,
           speed: options?.autoplay?.speed ?? 2000,
           repeat: options?.autoplay?.repeat ?? false,
-          startOnIndex: options?.autoplay?.startOnIndex ?? 0,
         },
       };
     },
@@ -292,7 +274,7 @@ export default {
      * @private internal use
      */
     _hasNext() {
-      return this.totalCount > this.position + this._size;
+      return this._length > this.position + this._size;
     },
 
     /**
@@ -308,7 +290,7 @@ export default {
      * @param position of item to scroll to
      */
     go(position) {
-      const maxPosition = this.totalCount - this._size;
+      const maxPosition = this._length - this._size;
       this.position = position > maxPosition ? maxPosition : position;
 
       const left =
@@ -320,12 +302,11 @@ export default {
      * Run autoPlay slide show
      */
     runAutoPlay() {
-      this.position = this._options.autoplay.startOnIndex;
       this.autoPlayInterval = setInterval(
         function () {
           if (
             this._options.autoplay.repeat &&
-            this.position === this.totalCount - this._size
+            this.position === this._length - this._size
           ) {
             this.position = 0;
             this.go(this.position);
@@ -369,21 +350,7 @@ export default {
             Math.abs(this.$refs.item[index].getBoundingClientRect().left)
           );
 
-          if (this.$slots["start"]) {
-            const startItem = Math.abs(
-              this.$refs.start.getBoundingClientRect().left
-            );
-            items = [startItem, ...items];
-          }
-          if (this.$slots["end"]) {
-            const endItem = Math.abs(
-              this.$refs.end.getBoundingClientRect().left
-            );
-            items = [...items, endItem];
-          }
-
-          const itemPosition = items.indexOf(Math.min(...items));
-          this.position = itemPosition;
+          this.position = items.indexOf(Math.min(...items));
         }.bind(this),
         50
       );
