@@ -22,14 +22,21 @@ jobs:
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
 
-      - name: Prettify code
-        uses: creyD/prettier_action@v3.1
+      - uses: actions/setup-node@v1
         with:
-          only_changed: True
+          node-version: '14'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn run prettier:check
+
+      - if: ${{ failure() }}
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: "Prettier check failed. You need to run `yarn run prettier:write` before committing."
+          check_for_duplicate_msg: true
