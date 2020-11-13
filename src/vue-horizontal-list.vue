@@ -347,11 +347,14 @@ export default {
       //Renew timer
       this.scrollTimer = setTimeout(
         function () {
-          const parentLeftOffset = this.$refs['list'].getBoundingClientRect().left;
+          const parentLeftOffset = this.$refs["list"].getBoundingClientRect()
+            .left;
 
           let items = this._items.map((item, index) => {
-            const itemLeftOffset = this.$refs.item[index].getBoundingClientRect().left;
-            return Math.abs(itemLeftOffset - parentLeftOffset)
+            const itemLeftOffset = this.$refs.item[
+              index
+            ].getBoundingClientRect().left;
+            return Math.abs(itemLeftOffset - parentLeftOffset);
           });
 
           this.position = items.indexOf(Math.min(...items));
