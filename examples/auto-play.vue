@@ -1,6 +1,11 @@
 <template>
   <div>
     <h2>Autoplay</h2>
+    <p>
+      Contributed by
+      <a href="https://github.com/Draccano" target="_blank">@Draccano</a>
+    </p>
+
     <vue-horizontal-list :items="items" :options="options">
       <template v-slot:default="{ item }">
         <div class="item">

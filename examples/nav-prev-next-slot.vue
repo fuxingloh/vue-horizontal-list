@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Custom Prev/Next Nav Icon</h2>
+    <h2>Custom Prev & Next Nav Icon</h2>
     <vue-horizontal-list :items="items" :options="options">
       <template v-slot:nav-prev>
         <div>👈</div>
