@@ -31,6 +31,8 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
+    "examples:serve": "vue-cli-service serve examples/serve.js",
+    "examples:build": "vue-cli-service build examples/serve.js",
     "prepublishOnly": "yarn build",
     "prettier:format": "prettier --write .",
     "prettier:check": "prettier --check ."
