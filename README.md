@@ -1,10 +1,19 @@
-# vue-horizontal-list
+# Vue Horizontal List
 
-A pure vue horizontal list implementation with minimal dependencies, ssr support, mobile friendly, touch friendly and responsive.
-I created this because I like how AirBnb does their horizontal list, I couldn't find a library that is simple and close to it.
+A pure vue native horizontal list implementation for mobile/touch and responsive web.
+Check it out here: [fuxingloh.github.io/vue-horizontal-list](https://fuxingloh.github.io/vue-horizontal-list/).
 
-Check it out: [LIVE DEMO](https://nuxt-app.now.sh/vue-horizontal-list),
-Source is here: [source code](https://github.com/fuxingloh/nuxt-app/blob/master/components/examples/ExampleHorizontalList.vue).
+> I created this because I like how AirBnb does their horizontal list, I couldn't find a library that is simple and close to it.
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![License MIT](https://img.shields.io/github/license/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/blob/master/LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/releases)
+[![Contributors](https://img.shields.io/github/contributors-anon/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/issues)
+[![GitHub Pages](https://github.com/fuxingloh/vue-horizontal-list/workflows/GitHub%20Pages/badge.svg)](https://fuxingloh.github.io/vue-horizontal-list/)
+[![CI](https://github.com/fuxingloh/vue-horizontal-list/workflows/CI/badge.svg)](https://github.com/fuxingloh/vue-horizontal-list/actions?query=workflow%3ACI)
+
+---
 
 [![vue-horizontal-list screenshot](demo.png)](https://nuxt-app.now.sh/vue-horizontal-list)
 
@@ -14,6 +23,28 @@ Source is here: [source code](https://github.com/fuxingloh/nuxt-app/blob/master/
 npm i vue-horizontal-list
 # or
 yarn add vue-horizontal-list
+```
+
+#### Basic usage
+
+```vue
+<vue-horizontal-list
+  :items="items"
+  :options="{
+    responsive: [
+      { end: 576, size: 1 },
+      { start: 576, end: 768, size: 2 },
+      { size: 3 },
+    ],
+  }"
+>
+  <template v-slot:default="{item}">
+    <div class="item">
+      <h5>{{item.title}}</h5>
+      <p>{{item.content}}</p>
+    </div>
+  </template>
+</vue-horizontal-list>
 ```
 
 ## Features
@@ -29,12 +60,14 @@ yarn add vue-horizontal-list
 - Dynamic responsive breakpoint configuration
 - Navigation control will show up dynamically for larger screen
 - Touch screen friendly
-- Let's get slideshow autoplayed
-- Slot different content at the beginning or the ending of the items list.
+- Slideshow autoplay by [@Draccano](https://github.com/Draccano).
+- Slot different content at the beginning, or the ending of the items list by [@Draccano](https://github.com/Draccano).
 - Minimal config setup
 - Tested on chrome, edge and safari
+- [Demo](https://fuxingloh.github.io/vue-horizontal-list/)
+- [Examples](https://github.com/fuxingloh/vue-horizontal-list/tree/master/examples)
 
-## Options
+## All available options
 
 ```js
 const options = {
@@ -83,52 +116,29 @@ const options = {
 };
 ```
 
-## Examples
-
-### Basic Responsive Usage
-
-- Width between 0 - 576, show 1
-- Width between 576 - 768, show 2
-- Width fallback, show 3
-
-### Slotting
-
-- default slot of the items is tagged `v-slot:default`, is required.
-- additional optional slots could be binding via `v-slot:start` or `v-slot:end`
-
-```vue
-<vue-horizontal-list
-  :items="items"
-  :options="{
-    responsive: [
-      { end: 576, size: 1 },
-      { start: 576, end: 768, size: 2 },
-      { size: 3 },
-    ],
-  }"
->
-  <template v-slot:start>
-    <div class="start-item" style="background:red;">
-       <p>Start item</p>
-    </div>
-  </template>
-
-  <template v-slot:default="{item}">
-    <div class="item">
-      <h5>{{item.title}}</h5>
-      <p>{{item.content}}</p>
-    </div>
-  </template>
-</vue-horizontal-list>
-```
-
-### Full Example
+## Advanced usage
 
 ```vue
 <template>
   <div id="app">
     <section>
       <vue-horizontal-list :items="items" :options="options">
+        <template v-slot:nav-prev>
+          <div>👈</div>
+        </template>
+
+        <template v-slot:nav-next>
+          <div>👉</div>
+        </template>
+
+        <template v-slot:start>
+          <div>First Item</div>
+        </template>
+
+        <template v-slot:end>
+          <div>Last Item</div>
+        </template>
+
         <template v-slot:default="{ item }">
           <div class="item">
             <h5>{{ item.title }}</h5>
@@ -165,9 +175,16 @@ export default Vue.extend({
           // Because: #app {padding: 80px 24px;}
           padding: 24,
         },
-        autoplay: { play: true, repeat: true }, // 2 seconds delay is by default
+        position: {
+          start: 2,
+        },
+        autoplay: { play: true, repeat: true, speed: 2500 },
       },
-      items: [{ title: "Item 0", content: "Content item with description" }],
+      items: [
+        { title: "Item 0", content: "Content item with description" },
+        { title: "Item 1", content: "Content item with description" },
+        { title: "Item 2", content: "Content item with description" },
+      ],
     };
   },
 });
@@ -197,6 +214,13 @@ body {
 </style>
 ```
 
-## Contributing
+## Development
+
+```shell script
+yarn # to setup
+yarn run examples:serve # to dev and test
+```
+
+## Contributions
 
 For any question or feature request please feel free to create an [issue](https://github.com/fuxingloh/vue-horizontal-list/issues/new) or [pull request](https://github.com/fuxingloh/vue-horizontal-list/pulls).
