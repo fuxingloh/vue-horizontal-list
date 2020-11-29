@@ -39,6 +39,9 @@
         :class="_options.list.class"
         :style="_style.list"
         @scroll="scrollHandler"
+        @mousedown="onMouseDown"
+        @mouseup="onMouseUp"
+        @mousemove="onMouseMove"
       >
         <div
           v-for="item in _items"
@@ -120,6 +123,22 @@ export default {
        * Interval of the autoPlay
        */
       autoPlayInterval: null,
+      /**
+       *  mouse pressed down
+       */
+      isDown: false,
+      /**
+       *  initial X position of the list
+       */
+      startX: 0,
+      /**
+       *  the number of pixels scrolled from the left edge
+       */
+      scrollLeft: 0,
+      /**
+       *  Call go function after scroll and mouse up
+       */
+      goAfterScroll: false,
     };
   },
   mounted() {
@@ -149,6 +168,9 @@ export default {
     window.removeEventListener("resize", this.$resize);
   },
   computed: {
+    _list() {
+      return this.$refs["list"];
+    },
     _items() {
       return [
         ...(this.$slots["start"] ? [{ type: "start" }] : []),
@@ -166,6 +188,7 @@ export default {
       return {
         navigation: {
           start: options?.navigation?.start ?? 992,
+          draggable: options?.navigation?.draggable ?? false,
           // TODO(fuxing): Deprecate this in favor of navigation slot
           color: options?.navigation?.color ?? "#000",
         },
@@ -306,6 +329,45 @@ export default {
     /**
      * Run autoPlay slide show
      */
+    onMouseDown(e) {
+      if (this._options.navigation.draggable) {
+        this.isDown = true;
+        this._list.classList.add("down-pressed");
+        this.startX = e.pageX - this._list.offsetLeft;
+        this.scrollLeft = this._list.scrollLeft;
+        console.log("down");
+      }
+    },
+    onMouseLeave(e) {
+      if (this._options.navigation.draggable) {
+        this.isDown = false;
+        this._list.classList.remove("down-pressed");
+        console.log("leaved");
+      }
+    },
+    onMouseUp(e) {
+      if (this._options.navigation.draggable) {
+        this.isDown = false;
+        this.goAfterScroll = true;
+
+        this.scrollHandler();
+        setTimeout(() => {
+          this._list.classList.remove("down-pressed");
+        }, 300);
+        console.log("up");
+      }
+    },
+    onMouseMove(e) {
+      if (this._options.navigation.draggable) {
+        if (!this.isDown) return;
+        e.preventDefault();
+        const x = e.pageX - this._list.offsetLeft;
+        const walk = x - this.startX;
+        console.log(walk);
+        this._list.scrollLeft = this.scrollLeft - walk;
+        console.log("move");
+      }
+    },
     runAutoPlay() {
       this.autoPlayInterval = setInterval(
         function () {
@@ -346,25 +408,32 @@ export default {
      * On horizontal scroll re-evaluate the actual position
      */
     scrollHandler() {
-      clearTimeout(this.scrollTimer);
+      if (!this.isDown) {
+        clearTimeout(this.scrollTimer);
 
-      //Renew timer
-      this.scrollTimer = setTimeout(
-        function () {
-          const parentLeftOffset = this.$refs["list"].getBoundingClientRect()
-            .left;
+        //Renew timer
+        this.scrollTimer = setTimeout(
+          function () {
+            const parentLeftOffset = this.$refs["list"].getBoundingClientRect()
+              .left;
 
-          let items = this._items.map((item, index) => {
-            const itemLeftOffset = this.$refs.item[
-              index
-            ].getBoundingClientRect().left;
-            return Math.abs(itemLeftOffset - parentLeftOffset);
-          });
+            let items = this._items.map((item, index) => {
+              const itemLeftOffset = this.$refs.item[
+                index
+              ].getBoundingClientRect().left;
+              return Math.abs(itemLeftOffset - parentLeftOffset);
+            });
 
-          this.position = items.indexOf(Math.min(...items));
-        }.bind(this),
-        50
-      );
+            this.position = items.indexOf(Math.min(...items));
+
+            if (this._options.navigation.draggable && this.goAfterScroll) {
+              this.go(this.position);
+              this.goAfterScroll = false;
+            }
+          }.bind(this),
+          50
+        );
+      }
     },
   },
   watch: {
@@ -437,8 +506,11 @@ export default {
 
   overflow-x: scroll;
   overflow-y: hidden;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+}
+
+.vhl-list:not(.down-pressed) {
+  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
 }
 
