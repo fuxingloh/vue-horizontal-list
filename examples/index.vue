@@ -20,8 +20,6 @@
 
     <left-right-slot />
 
-    <draggable-items />
-
     <auto-play />
 
     <image-two />
@@ -52,7 +50,6 @@ import NavPrevNextSlot from "./nav-prev-next-slot";
 import ImageTwo from "./image-two";
 import ImageThree from "./image-three";
 import ImageFour from "./image-four";
-import DraggableItems from "./draggable-items";
 import ImageFive from "./image-five";
 
 export default Vue.extend({
@@ -71,7 +68,6 @@ export default Vue.extend({
     PositionStart,
     Simple,
     VueHorizontalList,
-    DraggableItems,
   },
 });
 </script>
