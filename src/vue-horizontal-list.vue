@@ -147,6 +147,9 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.$resize);
+    if (this.autoPlayInterval) {
+      clearInterval(this.autoPlayInterval);
+    }
   },
   computed: {
     _items() {
