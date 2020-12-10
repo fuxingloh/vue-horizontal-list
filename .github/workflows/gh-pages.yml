@@ -1,0 +1,30 @@
+name: GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn run examples:build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: gh-pages
+          CLEAN: true

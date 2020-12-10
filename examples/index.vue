@@ -1,5 +1,15 @@
 <template>
   <div id="app">
+    <h1>Vue Horizontal List</h1>
+    <p>
+      You can find all examples here
+      <a
+        href="https://github.com/fuxingloh/vue-horizontal-list/tree/master/examples"
+        target="_blank"
+        >in this folder</a
+      >.
+    </p>
+
     <simple />
 
     <position-start />
@@ -11,6 +21,16 @@
     <left-right-slot />
 
     <auto-play />
+
+    <image-two />
+
+    <image-three />
+
+    <image-four />
+
+    <image-five />
+
+    <nav-prev-next-slot />
 
     <item-customization />
   </div>
@@ -26,10 +46,20 @@ import Responsive from "./responsive";
 import ItemCustomization from "./item-customization";
 import AutoPlay from "./auto-play";
 import LeftRightSlot from "./left-right-slot";
+import NavPrevNextSlot from "./nav-prev-next-slot";
+import ImageTwo from "./image-two";
+import ImageThree from "./image-three";
+import ImageFour from "./image-four";
+import ImageFive from "./image-five";
 
 export default Vue.extend({
-  name: "ServeDev",
+  name: "Index",
   components: {
+    ImageFive,
+    ImageFour,
+    ImageThree,
+    ImageTwo,
+    NavPrevNextSlot,
     LeftRightSlot,
     AutoPlay,
     ItemCustomization,

@@ -2,29 +2,33 @@
   <div class="vue-horizontal-list" ref="container">
     <div class="vhl-navigation" v-if="width.window > _options.navigation.start">
       <div @click="prev" v-if="_hasPrev" class="vhl-btn-left">
-        <svg
-          :fill="_options.navigation.color"
-          width="32px"
-          height="32px"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M10.757 12l4.95 4.95a1 1 0 1 1-1.414 1.414l-5.657-5.657a1 1 0 0 1 0-1.414l5.657-5.657a1 1 0 0 1 1.414 1.414L10.757 12z"
-          />
-        </svg>
+        <slot name="nav-prev">
+          <svg
+            :fill="_options.navigation.color"
+            width="32px"
+            height="32px"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M10.757 12l4.95 4.95a1 1 0 1 1-1.414 1.414l-5.657-5.657a1 1 0 0 1 0-1.414l5.657-5.657a1 1 0 0 1 1.414 1.414L10.757 12z"
+            />
+          </svg>
+        </slot>
       </div>
 
       <div @click="next" v-if="_hasNext" class="vhl-btn-right">
-        <svg
-          :fill="_options.navigation.color"
-          width="32px"
-          height="32px"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M13.314 12.071l-4.95-4.95a1 1 0 0 1 1.414-1.414l5.657 5.657a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 0 1-1.414-1.414l4.95-4.95z"
-          />
-        </svg>
+        <slot name="nav-next">
+          <svg
+            :fill="_options.navigation.color"
+            width="32px"
+            height="32px"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M13.314 12.071l-4.95-4.95a1 1 0 0 1 1.414-1.414l5.657 5.657a1 1 0 0 1 0 1.414l-5.657 5.657a1 1 0 0 1-1.414-1.414l4.95-4.95z"
+            />
+          </svg>
+        </slot>
       </div>
     </div>
 
@@ -350,9 +354,15 @@ export default {
       //Renew timer
       this.scrollTimer = setTimeout(
         function () {
-          let items = this.items.map((item, index) =>
-            Math.abs(this.$refs.item[index].getBoundingClientRect().left)
-          );
+          const parentLeftOffset = this.$refs["list"].getBoundingClientRect()
+            .left;
+
+          let items = this._items.map((item, index) => {
+            const itemLeftOffset = this.$refs.item[
+              index
+            ].getBoundingClientRect().left;
+            return Math.abs(itemLeftOffset - parentLeftOffset);
+          });
 
           this.position = items.indexOf(Math.min(...items));
         }.bind(this),

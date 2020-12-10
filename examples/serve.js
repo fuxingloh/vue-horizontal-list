@@ -1,8 +1,8 @@
 import Vue from "vue";
-import Dev from "./serve.vue";
+import Index from "./index.vue";
 
 Vue.config.productionTip = false;
 
 new Vue({
-  render: (h) => h(Dev),
+  render: (h) => h(Index),
 }).$mount("#app");

@@ -1,12 +1,15 @@
 <template>
   <div>
-    <h2>Autoplay</h2>
-    <p>
-      Contributed by
-      <a href="https://github.com/Draccano" target="_blank">@Draccano</a>
-    </p>
-
+    <h2>Custom Prev & Next Nav Icon</h2>
     <vue-horizontal-list :items="items" :options="options">
+      <template v-slot:nav-prev>
+        <div>👈</div>
+      </template>
+
+      <template v-slot:nav-next>
+        <div>👉</div>
+      </template>
+
       <template v-slot:default="{ item }">
         <div class="item">
           <h3>{{ item.title }}</h3>
@@ -21,18 +24,16 @@
 import VueHorizontalList from "@/vue-horizontal-list.vue";
 
 export default {
-  name: "auto-play",
+  name: "nav-prev-next-slot",
   components: {
     VueHorizontalList,
   },
   data() {
     return {
       items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
-        return { title: `Auto play ${i}`, content: `Auto play, 3000ms.` };
+        return { title: `Item ${i}`, content: `Content ${i}` };
       }),
-      options: {
-        autoplay: { play: true, repeat: true, speed: 3000 },
-      },
+      options: {},
     };
   },
 };
@@ -40,7 +41,7 @@ export default {
 
 <style scoped>
 .item {
-  padding: 24px;
+  padding: 16px 24px;
   border-radius: 3px;
   background: #f5f5f5;
 }
