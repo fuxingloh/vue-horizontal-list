@@ -1,4 +1,19 @@
-# Vue Horizontal List
+## 👋 You might want to use [Vue Horizontal](https://github.com/fuxingloh/vue-horizontal) instead!
+
+[Vue Horizontal](https://github.com/fuxingloh/vue-horizontal)
+is another take on the horizontal layout written by me with an ultra simple implementation that is extensible and moves the
+responsibility to the user rather than the library.
+With zero dependencies, 3 KB for CDN users it's built for your production needs.
+
+[Vue Horizontal](https://github.com/fuxingloh/vue-horizontal) is a rewrite of this library with many more focus such as
+end-to-end testing on real browsers, SSG/SSR CI testing to make sure all code is SSG/SSR compliant for your SEO!
+Documentation are also extensible with everything you can think of about horizontal layout documentation through and through.
+
+[Vue Horizontal](https://github.com/fuxingloh/vue-horizontal) also contains a snippet dossier with many SPA/SSR/SSG
+friendly recipes for your design needs.
+Vue Horizontal is not just a library, **it's a place for everything horizontal.**
+
+## Vue Horizontal List
 
 A pure vue native horizontal list implementation for mobile/touch and responsive web.
 Check it out here: [fuxingloh.github.io/vue-horizontal-list](https://fuxingloh.github.io/vue-horizontal-list/).
@@ -24,6 +39,8 @@ npm i vue-horizontal-list
 # or
 yarn add vue-horizontal-list
 ```
+
+Check out this [alternative project](https://github.com/fuxingloh/vue-horizontal) maintained by me for a new take on horizontal layout in vue.
 
 #### Basic usage
 
