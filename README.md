@@ -11,7 +11,7 @@ Documentation are also extensible with everything you can think of about horizon
 
 [Vue Horizontal](https://github.com/fuxingloh/vue-horizontal) also contains a snippet dossier with many SPA/SSR/SSG
 friendly recipes for your design needs.
-Vue Horizontal is not just a library, **it's a place for everything horizontal.**
+[Vue Horizontal](https://vue-horizontal.fuxing.dev/) is not just a library, **it's a place for everything horizontal.**
 
 ## Vue Horizontal List
 

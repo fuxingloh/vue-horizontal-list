@@ -450,14 +450,15 @@ export default {
 
   padding-top: 24px;
   padding-bottom: 24px;
+
+  z-index: 1;
+
+  /* Prevent content from collapsing when empty. E.g. image while loading height=0. */
+  min-height: 1px;
 }
 
 .vhl-list > * {
   scroll-snap-align: start;
   flex-shrink: 0;
-}
-
-.vhl-item {
-  z-index: 1;
 }
 </style>
