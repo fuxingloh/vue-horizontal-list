@@ -16,21 +16,21 @@ friendly recipes for your design needs.
 ## Vue Horizontal List
 
 A pure vue native horizontal list implementation for mobile/touch and responsive web.
-Check it out here: [fuxingloh.github.io/vue3-horizontal-list](https://fuxingloh.github.io/vue3-horizontal-list/).
+Check it out here: [vue3-horizontal-list](https://github.com/DaQinShgy/vue3-horizontal-list/).
 
 > I created this because I like how AirBnb does their horizontal list, I couldn't find a library that is simple and close to it.
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![License MIT](https://img.shields.io/github/license/fuxingloh/vue3-horizontal-list)](https://github.com/fuxingloh/vue3-horizontal-list/blob/master/LICENSE)
-[![Latest Release](https://img.shields.io/github/v/release/fuxingloh/vue3-horizontal-list)](https://github.com/fuxingloh/vue3-horizontal-list/releases)
-[![Contributors](https://img.shields.io/github/contributors-anon/fuxingloh/vue3-horizontal-list)](https://github.com/fuxingloh/vue3-horizontal-list/graphs/contributors)
-[![Issues](https://img.shields.io/github/issues/fuxingloh/vue3-horizontal-list)](https://github.com/fuxingloh/vue3-horizontal-list/issues)
-[![GitHub Pages](https://github.com/fuxingloh/vue3-horizontal-list/workflows/GitHub%20Pages/badge.svg)](https://fuxingloh.github.io/vue3-horizontal-list/)
-[![CI](https://github.com/fuxingloh/vue3-horizontal-list/workflows/CI/badge.svg)](https://github.com/fuxingloh/vue3-horizontal-list/actions?query=workflow%3ACI)
+[![License MIT](https://img.shields.io/github/license/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/blob/master/LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/releases)
+[![Contributors](https://img.shields.io/github/contributors-anon/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/issues)
+[![GitHub Pages](https://github.com/fuxingloh/vue-horizontal-list/workflows/GitHub%20Pages/badge.svg)](https://fuxingloh.github.io/vue-horizontal-list/)
+[![CI](https://github.com/fuxingloh/vue-horizontal-list/workflows/CI/badge.svg)](https://github.com/fuxingloh/vue-horizontal-list/actions?query=workflow%3ACI)
 
 ---
 
-[![vue3-horizontal-list screenshot](demo.png)](https://nuxt-app.now.sh/vue3-horizontal-list)
+[![vue3-horizontal-list screenshot](demo.png)](https://nuxt-app.now.sh/vue-horizontal-list)
 
 ## Installation
 
@@ -81,8 +81,8 @@ Check out this [alternative project](https://github.com/fuxingloh/vue-horizontal
 - Slot different content at the beginning, or the ending of the items list by [@Draccano](https://github.com/Draccano).
 - Minimal config setup
 - Tested on chrome, edge and safari
-- [Demo](https://fuxingloh.github.io/vue3-horizontal-list/)
-- [Examples](https://github.com/fuxingloh/vue3-horizontal-list/tree/master/examples)
+- [Demo](https://github.com/DaQinShgy/vue3-horizontal-list/)
+- [Examples](https://github.com/DaQinShgy/vue3-horizontal-list/tree/master/examples)
 
 ## All available options
 
@@ -240,4 +240,4 @@ yarn run examples:serve # to dev and test
 
 ## Contributions
 
-For any question or feature request please feel free to create an [issue](https://github.com/fuxingloh/vue3-horizontal-list/issues/new) or [pull request](https://github.com/fuxingloh/vue3-horizontal-list/pulls).
+For any question or feature request please feel free to create an [issue](https://github.com/fuxingloh/vue-horizontal-list/issues/new) or [pull request](https://github.com/fuxingloh/vue-horizontal-list/pulls).
