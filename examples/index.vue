@@ -4,41 +4,39 @@
     <p>
       You can find all examples here
       <a
-        href="https://github.com/fuxingloh/vue-horizontal-list/tree/master/examples"
-        target="_blank"
-        >in this folder</a
+          href="https://github.com/fuxingloh/vue3-horizontal-list/tree/master/examples"
+          target="_blank"
+      >in this folder</a
       >.
     </p>
 
-    <simple />
+    <simple/>
 
-    <position-start />
+    <position-start/>
 
-    <full-width />
+    <full-width/>
 
-    <responsive />
+    <responsive/>
 
-    <left-right-slot />
+    <left-right-slot/>
 
-    <auto-play />
+    <auto-play/>
 
-    <image-two />
+    <image-two/>
 
-    <image-three />
+    <image-three/>
 
-    <image-four />
+    <image-four/>
 
-    <image-five />
+    <image-five/>
 
-    <nav-prev-next-slot />
+    <nav-prev-next-slot/>
 
-    <item-customization />
+    <item-customization/>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import VueHorizontalList from "@/vue-horizontal-list.vue";
 import Simple from "./simple";
 import PositionStart from "./position-start";
 import FullWidth from "./full-width";
@@ -52,30 +50,29 @@ import ImageThree from "./image-three";
 import ImageFour from "./image-four";
 import ImageFive from "./image-five";
 
-export default Vue.extend({
-  name: "Index",
+export default {
   components: {
-    ImageFive,
-    ImageFour,
-    ImageThree,
-    ImageTwo,
-    NavPrevNextSlot,
-    LeftRightSlot,
-    AutoPlay,
-    ItemCustomization,
-    Responsive,
-    FullWidth,
-    PositionStart,
     Simple,
-    VueHorizontalList,
-  },
-});
+    PositionStart,
+    FullWidth,
+    Responsive,
+    ItemCustomization,
+    AutoPlay,
+    LeftRightSlot,
+    NavPrevNextSlot,
+    ImageTwo,
+    ImageThree,
+    ImageFour,
+    ImageFive
+  }
+}
+
 </script>
 
 <style>
 body {
   font-family: "-apple-system", "system-ui", "BlinkMacSystemFont", "Segoe UI",
-    "Roboto", "Helvetica Neue", "Arial", "sans-serif";
+  "Roboto", "Helvetica Neue", "Arial", "sans-serif";
   margin: 0;
   padding: 0;
 }

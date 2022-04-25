@@ -5,7 +5,7 @@
       Contributed by
       <a href="https://github.com/Draccano" target="_blank">@Draccano</a>
     </p>
-    <vue-horizontal-list :items="items" :options="options">
+    <vue3-horizontal-list :items="items" :options="options">
       <template v-slot:start>
         <div class="item item-start-end">
           <div>
@@ -28,24 +28,31 @@
           </div>
         </div>
       </template>
-    </vue-horizontal-list>
+    </vue3-horizontal-list>
   </div>
 </template>
 
 <script>
-import VueHorizontalList from "@/vue-horizontal-list.vue";
+import Vue3HorizontalList from "@/vue3-horizontal-list.vue";
+import { ref, reactive } from "vue";
 
 export default {
   name: "left-right-slot",
   components: {
-    VueHorizontalList,
+    Vue3HorizontalList,
   },
-  data() {
-    return {
-      items: [0, 1, 2, 3, 4, 5].map((i) => {
+  setup() {
+    const items = ref(
+      [0, 1, 2, 3, 4, 5].map((i) => {
         return { title: `Left Right Slot ${i}`, content: `3 slots` };
-      }),
-      options: {},
+      })
+    );
+
+    const options = reactive({});
+
+    return {
+      items,
+      options,
     };
   },
 };

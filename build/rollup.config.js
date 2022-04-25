@@ -72,7 +72,7 @@ if (!argv.format || argv.format === "es") {
     ...baseConfig,
     external,
     output: {
-      file: "dist/vue-horizontal-list.esm.js",
+      file: "dist/vue3-horizontal-list.esm.js",
       format: "esm",
       exports: "named",
     },
@@ -107,9 +107,9 @@ if (!argv.format || argv.format === "cjs") {
     external,
     output: {
       compact: true,
-      file: "dist/vue-horizontal-list.ssr.js",
+      file: "dist/vue3-horizontal-list.ssr.js",
       format: "cjs",
-      name: "VueHorizontalList",
+      name: "Vue3HorizontalList",
       exports: "named",
       globals,
     },
@@ -137,9 +137,9 @@ if (!argv.format || argv.format === "iife") {
     external,
     output: {
       compact: true,
-      file: "dist/vue-horizontal-list.min.js",
+      file: "dist/vue3-horizontal-list.min.js",
       format: "iife",
-      name: "VueHorizontalList",
+      name: "Vue3HorizontalList",
       exports: "named",
       globals,
     },

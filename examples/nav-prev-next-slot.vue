@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Custom Prev & Next Nav Icon</h2>
-    <vue-horizontal-list :items="items" :options="options">
+    <vue3-horizontal-list :items="items" :options="options">
       <template v-slot:nav-prev>
         <div>👈</div>
       </template>
@@ -16,24 +16,31 @@
           <p>{{ item.content }}</p>
         </div>
       </template>
-    </vue-horizontal-list>
+    </vue3-horizontal-list>
   </div>
 </template>
 
 <script>
-import VueHorizontalList from "@/vue-horizontal-list.vue";
+import Vue3HorizontalList from "@/vue3-horizontal-list.vue";
+import { ref, reactive } from "vue";
 
 export default {
   name: "nav-prev-next-slot",
   components: {
-    VueHorizontalList,
+    Vue3HorizontalList,
   },
-  data() {
-    return {
-      items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
+  setup() {
+    const items = ref(
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
         return { title: `Item ${i}`, content: `Content ${i}` };
-      }),
-      options: {},
+      })
+    );
+
+    const options = reactive({});
+
+    return {
+      items,
+      options,
     };
   },
 };
