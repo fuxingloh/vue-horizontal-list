@@ -1,3 +1,5 @@
+## Froked from [fuxingloh/vue-horizontal-list](https://github.com/fuxingloh/vue-horizontal-list), migrate to vue3, thank you again [fuxingloh](https://github.com/fuxingloh).
+
 ## 👋 You might want to use [Vue Horizontal](https://github.com/fuxingloh/vue-horizontal) instead!
 
 [Vue Horizontal](https://github.com/fuxingloh/vue-horizontal)
