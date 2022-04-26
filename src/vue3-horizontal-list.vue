@@ -1,5 +1,5 @@
 <template>
-  <div class="vue3-horizontal-list" ref="container">
+  <div class="vue-horizontal-list" ref="container">
     <div class="vhl-navigation" v-if="width.window > options.navigation.start">
       <div @click="prev" v-if="hasPrev" class="vhl-btn-left">
         <slot name="nav-prev">
@@ -410,7 +410,7 @@ export default {
 </script>
 
 <style scoped>
-.vue3-horizontal-list {
+.vue-horizontal-list {
   position: relative;
 }
 

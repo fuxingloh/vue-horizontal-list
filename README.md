@@ -237,7 +237,7 @@ body {
 
 ```shell script
 yarn # to setup
-yarn run examples:serve # to dev and test
+yarn serve # to dev and test
 ```
 
 ## Contributions

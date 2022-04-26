@@ -4,7 +4,7 @@
     <p>
       You can find all examples here
       <a
-          href="https://github.com/fuxingloh/vue3-horizontal-list/tree/master/examples"
+          href="https://github.com/DaQinShgy/vue3-horizontal-list/tree/master/examples"
           target="_blank"
       >in this folder</a
       >.
