@@ -1,33 +1,38 @@
 <template>
   <div>
     <h2>Simple</h2>
-    <vue-horizontal-list :items="items" :options="options">
+    <vue3-horizontal-list :items="items" :options="options">
       <template v-slot:default="{ item }">
         <div class="item">
           <h3>{{ item.title }}</h3>
           <p>{{ item.content }}</p>
         </div>
       </template>
-    </vue-horizontal-list>
+    </vue3-horizontal-list>
   </div>
 </template>
 
 <script>
-import VueHorizontalList from "@/vue-horizontal-list.vue";
+import vue3HorizontalList from "@/vue3-horizontal-list.vue";
+import {ref, reactive} from 'vue'
 
 export default {
   name: "simple",
   components: {
-    VueHorizontalList,
+    vue3HorizontalList,
   },
-  data() {
+  setup() {
+    const items = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
+      return {title: `Item ${i}`, content: `🚀 Simple content ${i}`};
+    }))
+
+    const options = reactive({})
+
     return {
-      items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
-        return { title: `Item ${i}`, content: `🚀 Simple content ${i}` };
-      }),
-      options: {},
-    };
-  },
+      items,
+      options
+    }
+  }
 };
 </script>
 
