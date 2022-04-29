@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import Vue3HorizontalList from "@/vue3-horizontal-list.vue";
+import vue3HorizontalList from "@/vue3-horizontal-list.vue";
 import {ref, reactive} from 'vue'
 
 export default {
   name: "simple",
   components: {
-    Vue3HorizontalList,
+    vue3HorizontalList,
   },
   setup() {
     const items = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {

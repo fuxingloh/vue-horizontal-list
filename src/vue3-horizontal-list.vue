@@ -73,7 +73,7 @@ import {
 } from "vue";
 
 export default {
-  name: "Vue3HorizontalList",
+  name: "vue3HorizontalList",
   props: {
     /**
      * items to display in horizontal-list

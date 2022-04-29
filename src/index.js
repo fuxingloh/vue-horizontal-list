@@ -2,10 +2,10 @@
 import component from "@/vue3-horizontal-list.vue";
 
 // install function executed by Vue.use()
-const install = function installVue3HorizontalList(Vue) {
+const install = function installvue3HorizontalList(Vue) {
   if (install.installed) return;
   install.installed = true;
-  Vue.component("Vue3HorizontalList", component);
+  Vue.component("vue3HorizontalList", component);
 };
 
 // Create module definition for Vue.use()

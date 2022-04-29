@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import Vue3HorizontalList from "@/vue3-horizontal-list.vue";
+import vue3HorizontalList from "@/vue3-horizontal-list.vue";
 import { ref, reactive } from "vue";
 
 export default {
   name: "auto-play",
   components: {
-    Vue3HorizontalList,
+    vue3HorizontalList,
   },
   setup() {
     const items = ref(

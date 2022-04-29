@@ -1,17 +1,17 @@
-## Froked from [fuxingloh/vue-horizontal-list](https://github.com/fuxingloh/vue-horizontal-list), migrate to vue3, thank you again [fuxingloh](https://github.com/fuxingloh).
+## Froked from [fuxingloh/vue-horizontal-list](https://github.com/DaQinShgy/vue3-horizontal-list-list), migrate to vue3, thank you again [fuxingloh](https://github.com/fuxingloh).
 
-## 👋 You might want to use [Vue Horizontal](https://github.com/fuxingloh/vue-horizontal) instead!
+## 👋 You might want to use [Vue Horizontal](https://github.com/DaQinShgy/vue3-horizontal-list) instead!
 
-[Vue Horizontal](https://github.com/fuxingloh/vue-horizontal)
+[Vue Horizontal](https://github.com/DaQinShgy/vue3-horizontal-list)
 is another take on the horizontal layout written by me with an ultra simple implementation that is extensible and moves the
 responsibility to the user rather than the library.
 With zero dependencies, 3 KB for CDN users it's built for your production needs.
 
-[Vue Horizontal](https://github.com/fuxingloh/vue-horizontal) is a rewrite of this library with many more focus such as
+[Vue Horizontal](https://github.com/DaQinShgy/vue3-horizontal-list) is a rewrite of this library with many more focus such as
 end-to-end testing on real browsers, SSG/SSR CI testing to make sure all code is SSG/SSR compliant for your SEO!
 Documentation are also extensible with everything you can think of about horizontal layout documentation through and through.
 
-[Vue Horizontal](https://github.com/fuxingloh/vue-horizontal) also contains a snippet dossier with many SPA/SSR/SSG
+[Vue Horizontal](https://github.com/DaQinShgy/vue3-horizontal-list) also contains a snippet dossier with many SPA/SSR/SSG
 friendly recipes for your design needs.
 [Vue Horizontal](https://vue-horizontal.fuxing.dev/) is not just a library, **it's a place for everything horizontal.**
 
@@ -23,12 +23,12 @@ Check it out here: [vue3-horizontal-list](https://github.com/DaQinShgy/vue3-hori
 > I created this because I like how AirBnb does their horizontal list, I couldn't find a library that is simple and close to it.
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![License MIT](https://img.shields.io/github/license/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/blob/master/LICENSE)
-[![Latest Release](https://img.shields.io/github/v/release/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/releases)
-[![Contributors](https://img.shields.io/github/contributors-anon/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/graphs/contributors)
-[![Issues](https://img.shields.io/github/issues/fuxingloh/vue-horizontal-list)](https://github.com/fuxingloh/vue-horizontal-list/issues)
-[![GitHub Pages](https://github.com/fuxingloh/vue-horizontal-list/workflows/GitHub%20Pages/badge.svg)](https://fuxingloh.github.io/vue-horizontal-list/)
-[![CI](https://github.com/fuxingloh/vue-horizontal-list/workflows/CI/badge.svg)](https://github.com/fuxingloh/vue-horizontal-list/actions?query=workflow%3ACI)
+[![License MIT](https://img.shields.io/github/license/fuxingloh/vue-horizontal-list)](https://github.com/DaQinShgy/vue3-horizontal-list-list/blob/master/LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/fuxingloh/vue-horizontal-list)](https://github.com/DaQinShgy/vue3-horizontal-list-list/releases)
+[![Contributors](https://img.shields.io/github/contributors-anon/fuxingloh/vue-horizontal-list)](https://github.com/DaQinShgy/vue3-horizontal-list-list/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/fuxingloh/vue-horizontal-list)](https://github.com/DaQinShgy/vue3-horizontal-list-list/issues)
+[![GitHub Pages](https://github.com/DaQinShgy/vue3-horizontal-list-list/workflows/GitHub%20Pages/badge.svg)](https://fuxingloh.github.io/vue-horizontal-list/)
+[![CI](https://github.com/DaQinShgy/vue3-horizontal-list-list/workflows/CI/badge.svg)](https://github.com/DaQinShgy/vue3-horizontal-list-list/actions?query=workflow%3ACI)
 
 ---
 
@@ -42,7 +42,7 @@ npm i vue3-horizontal-list
 yarn add vue3-horizontal-list
 ```
 
-Check out this [alternative project](https://github.com/fuxingloh/vue-horizontal) maintained by me for a new take on horizontal layout in vue.
+Check out this [alternative project](https://github.com/DaQinShgy/vue3-horizontal-list) maintained by me for a new take on horizontal layout in vue.
 
 #### Basic usage
 
@@ -64,6 +64,8 @@ Check out this [alternative project](https://github.com/fuxingloh/vue-horizontal
     </div>
   </template>
 </vue3-horizontal-list>
+
+import vue3HorizontalList from "vue3-horizontal-list";
 ```
 
 ## Features
@@ -171,12 +173,12 @@ const options = {
 
 <script>
 import Vue from "vue";
-import Vue3HorizontalList from "@/vue3-horizontal-list.vue";
+import vue3HorizontalList from "@/vue3-horizontal-list.vue";
 
 export default Vue.extend({
   name: "ServeDev",
   components: {
-    Vue3HorizontalList,
+    vue3HorizontalList,
   },
   data() {
     return {
@@ -242,4 +244,4 @@ yarn serve # to dev and test
 
 ## Contributions
 
-For any question or feature request please feel free to create an [issue](https://github.com/fuxingloh/vue-horizontal-list/issues/new) or [pull request](https://github.com/fuxingloh/vue-horizontal-list/pulls).
+For any question or feature request please feel free to create an [issue](https://github.com/DaQinShgy/vue3-horizontal-list-list/issues/new) or [pull request](https://github.com/DaQinShgy/vue3-horizontal-list-list/pulls).
